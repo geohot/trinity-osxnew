@@ -207,16 +207,16 @@ regen:
 void setup_fds(void)
 {
 	/* If we have victim files, don't worry about sockets. */
-	if (victim_path == NULL)
-		open_sockets();
+	/*if (victim_path == NULL)
+		open_sockets();*/
 
-	open_pipes();
+	//open_pipes();
 
-	open_perf_fds();
+	//open_perf_fds();
 
-	open_epoll_fds();
+	//open_epoll_fds();
 
-	open_eventfd_fds();
+	//open_eventfd_fds();
 
 	if (no_files == FALSE) {
 		generate_filelist();

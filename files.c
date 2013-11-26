@@ -171,19 +171,19 @@ static int file_tree_callback(const char *fpath, const struct stat *sb, __unused
 
 	/*if (ignore_files(fpath)) {
 		return FTW_SKIP_SUBTREE;
-	}
+	}*/
 
 	// Check we can read it.
 	if (check_stat_file(sb) == -1)
-		return FTW_CONTINUE;
+		return 0;
 
 	if (shm->exit_reason != STILL_RUNNING)
-		return FTW_STOP;
+		return -1;
 
 	add_to_namelist(fpath);
 	files_added++;
 
-	return FTW_CONTINUE;*/
+	return 0;
 }
 
 
@@ -230,8 +230,8 @@ void generate_filelist(void)
 		open_fds(victim_path);
 	} else {
 		open_fds("/dev");
-		open_fds("/proc");
-		open_fds("/sys");
+		//open_fds("/proc");
+		//open_fds("/sys");
 	}
 
 	if (shm->exit_reason != STILL_RUNNING)

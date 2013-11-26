@@ -16,3 +16,4 @@ ncscope.*
 *.patch
 cov-int
 trinity-coverity.tgz
+tags

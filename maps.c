@@ -98,7 +98,7 @@ static void * alloc_zero_map(struct map *map, int prot, const char *name)
 
 	if (tmpmap->ptr == MAP_FAILED) {
 		outputerr("mmap /dev/zero failure\n");
-		exit(EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
 	}
 
 	tmpmap->size = size;
