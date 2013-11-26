@@ -168,6 +168,7 @@ static int check_stat_file(const struct stat *sb)
 
 static int file_tree_callback(const char *fpath, const struct stat *sb, __unused__ int typeflag, __unused__ struct FTW *ftwbuf)
 {
+  output(1, "file tree callback %s\n", fpath);
 
 	/*if (ignore_files(fpath)) {
 		return FTW_SKIP_SUBTREE;
@@ -189,6 +190,7 @@ static int file_tree_callback(const char *fpath, const struct stat *sb, __unused
 
 static void open_fds(const char *dirpath)
 {
+	char b[4096];
 	int before = files_added;
 	int flags = FTW_DEPTH | FTW_MOUNT;
 	int ret;
@@ -198,7 +200,7 @@ static void open_fds(const char *dirpath)
 	 *
 	 * I'm not sure about this, might remove later.
 	 */
-	if (victim_path == NULL)
+	/*if (victim_path == NULL)
 		flags |= FTW_PHYS;
 
 	ret = nftw(dirpath, file_tree_callback, 32, flags);
@@ -207,7 +209,31 @@ static void open_fds(const char *dirpath)
 			output(0, "Something went wrong during nftw(%s). (%d:%s)\n",
 				dirpath, ret, strerror(errno));
 		return;
+	}*/
+
+	int r;
+	DIR *d = opendir(dirpath);
+	struct dirent *de;
+	struct stat buf;
+
+	if (!d) {
+		printf("can't open %s\n", dirpath);
+		return;
 	}
+	while ((de = readdir(d))) {
+		memset(&buf, 0, sizeof(struct stat));
+		snprintf(b, sizeof(b), "%s/%s", dirpath, de->d_name);
+    //output(1, "readdir %s\n", b);
+		if (ignore_files(de->d_name))
+			continue; /*".", "..", everything that's not a regular file or directory !*/
+		r = lstat(b,&buf);
+		if (r == -1)
+			continue;
+    if (shm->exit_reason != STILL_RUNNING)
+      return;
+    add_to_namelist(b);
+    files_added++;
+  }
 
 	output(0, "Added %d filenames from %s\n", files_added - before, dirpath);
 }

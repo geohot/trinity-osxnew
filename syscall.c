@@ -118,9 +118,10 @@ static unsigned long do_syscall(int childno, int *errno_saved)
 
 	errno = 0;
 
-	if (shm->do32bit[childno] == FALSE)
+	if (shm->do32bit[childno] == FALSE) {
+    //printf("calling syscall %d\n", nr);
 		ret = syscall(nr, a1, a2, a3, a4, a5, a6);
-	else
+	} else
 		ret = syscall32(nr, a1, a2, a3, a4, a5, a6);
 
 	*errno_saved = errno;
