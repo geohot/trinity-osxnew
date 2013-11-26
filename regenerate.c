@@ -16,11 +16,11 @@ static void do_sso_sockets(void)
 
 	for (i = 0; i < nr_sockets; i++) {
 		/* skip over bluetooth due to weird linger bug */
-		if (shm->sockets[i].triplet.family == PF_BLUETOOTH)
-			continue;
+		/*if (shm->sockets[i].triplet.family == PF_BLUETOOTH)
+			continue;*/
 
 		fd = shm->sockets[i].fd;
-		do_setsockopt(&so);
+		//do_setsockopt(&so);
 		ret = setsockopt(fd, so.level, so.optname, (void *)so.optval, so.optlen);
 		if (ret == 0)
 			output(1, "Setsockopt(%lx %lx %lx %lx) on fd %d [%d:%d:%d]\n",

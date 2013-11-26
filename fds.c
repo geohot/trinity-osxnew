@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/epoll.h>
-#include <sys/eventfd.h>
+//#include <sys/epoll.h>
+//#include <sys/eventfd.h>
 
 #include "perf.h"
 #include "random.h"
@@ -52,7 +52,7 @@ static void open_epoll_fds(void)
 	unsigned int i = 0;
 	int fd = -1;
 
-	while (i < MAX_EPOLL_FDS) {
+	/*while (i < MAX_EPOLL_FDS) {
 
 		switch (rand_bool()) {
 		case 0:	fd = epoll_create(1);
@@ -68,7 +68,7 @@ static void open_epoll_fds(void)
 			output(2, "fd[%d] = epoll\n", shm->epoll_fds[i]);
 			i++;
 		}
-	}
+	}*/
 }
 
 static int rand_epoll_fd(void)
@@ -81,7 +81,7 @@ static void open_eventfd_fds(void)
 {
 	unsigned int i;
 
-	shm->eventfd_fds[0] = eventfd(rand32(), 0);
+	/*shm->eventfd_fds[0] = eventfd(rand32(), 0);
 	shm->eventfd_fds[1] = eventfd(rand32(), EFD_CLOEXEC);
 	shm->eventfd_fds[2] = eventfd(rand32(), EFD_NONBLOCK);
 	shm->eventfd_fds[3] = eventfd(rand32(), EFD_SEMAPHORE);
@@ -91,7 +91,7 @@ static void open_eventfd_fds(void)
 	shm->eventfd_fds[7] = eventfd(rand32(), EFD_CLOEXEC | EFD_NONBLOCK | EFD_SEMAPHORE);
 
 	for (i = 0; i < MAX_EVENTFD_FDS; i++)
-		output(2, "fd[%d] = eventfd\n", shm->eventfd_fds[i]);
+		output(2, "fd[%d] = eventfd\n", shm->eventfd_fds[i]);*/
 }
 
 static int rand_eventfd_fd(void)

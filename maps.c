@@ -1,6 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
-#include <malloc.h>
+//#include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -94,7 +94,7 @@ static void * alloc_zero_map(struct map *map, int prot, const char *name)
 	 */
 	size *= 2;
 
-	tmpmap->ptr = mmap(NULL, size, prot, MAP_ANONYMOUS|MAP_SHARED, fd, 0);
+	tmpmap->ptr = mmap(NULL, size, prot, MAP_ANON|MAP_SHARED, fd, 0);
 
 	if (tmpmap->ptr == MAP_FAILED) {
 		outputerr("mmap /dev/zero failure\n");
@@ -172,25 +172,25 @@ void init_buffers(void)
 
 	output(2, "shm is at %p\n", shm);
 
-	page_zeros = memalign(page_size, page_size * 2);
+	posix_memalign(&page_zeros, page_size, page_size * 2);
 	if (!page_zeros)
 		exit(EXIT_FAILURE);
 	memset(page_zeros, 0, page_size);
 	output(2, "page_zeros @ %p\n", page_zeros);
 
-	page_0xff = memalign(page_size, page_size * 2);
+	posix_memalign(&page_0xff, page_size, page_size * 2);
 	if (!page_0xff)
 		exit(EXIT_FAILURE);
 	memset(page_0xff, 0xff, page_size);
 	output(2, "page_0xff @ %p\n", page_0xff);
 
-	page_rand = memalign(page_size, page_size * 2);
+	posix_memalign(&page_rand, page_size, page_size * 2);
 	if (!page_rand)
 		exit(EXIT_FAILURE);
 	memset(page_rand, 0x55, page_size);	/* overwritten below */
 	output(2, "page_rand @ %p\n", page_rand);
 
-	page_allocs = memalign(page_size, page_size * 2);
+	posix_memalign(&page_allocs, page_size, page_size * 2);
 	if (!page_allocs)
 		exit(EXIT_FAILURE);
 	memset(page_allocs, 0xff, page_size);

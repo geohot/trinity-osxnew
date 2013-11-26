@@ -1,6 +1,11 @@
 #ifndef _ARCH_H
 #define _ARCH_H 1
 
+#ifdef __APPLE__
+#include "arch-bsd.h"
+#else
+
+
 #ifdef __x86_64__
 #include "arch-x86-64.h"
 #endif
@@ -49,9 +54,12 @@
 #include "arch-parisc.h"
 #endif
 
+#endif
+
 #ifndef SYSCALL_OFFSET
 #define SYSCALL_OFFSET 0
 #endif
+
 
 #define PAGE_MASK (~(page_size - 1))
 extern unsigned int page_size;

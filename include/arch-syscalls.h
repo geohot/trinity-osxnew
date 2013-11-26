@@ -1,6 +1,11 @@
 #ifndef _ARCH_SYSCALLS_H
 #define _ARCH_SYSCALLS_H 1
 
+#ifdef __APPLE__
+#include "syscalls-bsd.h"
+
+#else
+
 #ifdef __x86_64__
 #include "syscalls-x86_64.h"
 #include "syscalls-i386.h"
@@ -41,4 +46,7 @@
 #ifdef __hppa__
 #include "syscalls-parisc.h"
 #endif
+
+#endif
+
 #endif  /* _ARCH_SYSCALLS_H */

@@ -23,6 +23,7 @@ static const char *cachefilename="trinity.socketcache";
 
 #define MAX_PER_DOMAIN 5
 #define MAX_TRIES_PER_DOMAIN 10
+#define get_proto_name(x) NULL
 
 static int open_socket(unsigned int domain, unsigned int type, unsigned int protocol)
 {
@@ -46,12 +47,12 @@ static int open_socket(unsigned int domain, unsigned int type, unsigned int prot
 	nr_sockets++;
 
 	/* skip over bluetooth due to weird linger bug */
-	if (domain == PF_BLUETOOTH)
-		goto skip_sso;
+	/*if (domain == PF_BLUETOOTH)
+		goto skip_sso;*/
 
 	/* Set some random socket options. */
 retry_sso:
-	do_setsockopt(&so);
+	//do_setsockopt(&so);
 	ret = setsockopt(fd, so.level, so.optname, (void *)so.optval, so.optlen);
 	if (ret == 0)
 		output(1, "Setsockopt(%lx %lx %lx %lx) on fd %d\n",
@@ -64,7 +65,7 @@ skip_sso:
 	/* Sometimes, listen on created sockets. */
 	if (rand_bool()) {
 		/* fake a sockaddr. */
-		generate_sockaddr((unsigned long *) &sa, (unsigned long *) &salen, domain);
+		//generate_sockaddr((unsigned long *) &sa, (unsigned long *) &salen, domain);
 
 		ret = bind(fd, &sa, salen);
 /*		if (ret == -1)
@@ -176,8 +177,8 @@ static void generate_sockets(void)
 			if (no_protos[st.family])
 				goto skip;
 
-			if (sanitise_socket_triplet(&st) == -1)
-				rand_proto_type(&st);
+			/*if (sanitise_socket_triplet(&st) == -1)
+				rand_proto_type(&st);*/
 
 			fd = open_socket(st.family, st.type, st.protocol);
 			if (fd > -1) {
@@ -229,8 +230,8 @@ void close_sockets(void)
 		//FIXME: This is a workaround for a weird bug where we hang forevre
 		// waiting for bluetooth sockets when we setsockopt.
 		// Hopefully at some point we can remove this when someone figures out what's going on.
-		if (shm->sockets[i].triplet.family == PF_BLUETOOTH)
-			continue;
+		/*if (shm->sockets[i].triplet.family == PF_BLUETOOTH)
+			continue;*/
 
 		/* Grab an fd, and nuke it before someone else uses it. */
 		fd = shm->sockets[i].fd;

@@ -275,7 +275,7 @@ void parse_args(int argc, char *argv[])
 			break;
 
 		case 'E':
-			parse_exclude_protos(optarg);
+			//parse_exclude_protos(optarg);
 			break;
 
 		case 'q':

@@ -6,10 +6,13 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <linux/kdev_t.h>
+//#include <linux/kdev_t.h>
 #include "files.h"
 
 #include "log.h"
+
+#define MAJOR(x) x
+#define MINOR(x) x
 
 static struct {
 	int major;

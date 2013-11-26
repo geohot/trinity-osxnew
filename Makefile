@@ -15,11 +15,9 @@ endif
 CFLAGS += -Wdeclaration-after-statement
 CFLAGS += -Wformat=2
 CFLAGS += -Winit-self
-CFLAGS += -Wlogical-op
 CFLAGS += -Wnested-externs
 CFLAGS += -Wpacked
 CFLAGS += -Wshadow
-CFLAGS += -Wstrict-aliasing=3
 CFLAGS += -Wswitch-default
 CFLAGS += -Wswitch-enum
 CFLAGS += -Wundef
@@ -27,7 +25,6 @@ CFLAGS += -Wwrite-strings
 CFLAGS += -Wstrict-prototypes -Wmissing-prototypes
 
 # Only enabled during development.
-CFLAGS += -Werror
 
 V	= @
 Q	= $(V:1=)

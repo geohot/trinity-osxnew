@@ -7,8 +7,8 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <setjmp.h>
-#include <malloc.h>
-#include <asm/unistd.h>
+//#include <malloc.h>
+//#include <asm/unistd.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -247,8 +247,8 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	if (do_specific_proto == TRUE)
-		find_specific_proto(specific_proto_optarg);
+	/*if (do_specific_proto == TRUE)
+		find_specific_proto(specific_proto_optarg);*/
 
 	init_buffers();
 

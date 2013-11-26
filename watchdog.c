@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <sys/prctl.h>
+//#include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -298,7 +298,7 @@ static void watchdog(void)
 
 	output(0, "Watchdog is alive. (pid:%d)\n", watchdog_pid);
 
-	prctl(PR_SET_NAME, (unsigned long) &watchdogname);
+	//prctl(PR_SET_NAME, (unsigned long) &watchdogname);
 	(void)signal(SIGSEGV, SIG_DFL);
 
 	while (watchdog_exit == FALSE) {

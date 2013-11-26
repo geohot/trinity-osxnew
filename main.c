@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/prctl.h>
+//#include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -104,7 +104,7 @@ static void fork_children(void)
 
 			memset(childname, 0, sizeof(childname));
 			sprintf(childname, "trinity-child%d", pidslot);
-			prctl(PR_SET_NAME, (unsigned long) &childname);
+			//prctl(PR_SET_NAME, (unsigned long) &childname);
 
 			oom_score_adj(500);
 
@@ -251,7 +251,7 @@ static void handle_child(pid_t childpid, int childstatus)
 				break;
 			case SIGSTOP:
 				debugf("Sending PTRACE_DETACH (and then KILL)\n");
-				ptrace(PTRACE_DETACH, childpid, NULL, NULL);
+				//ptrace(PTRACE_DETACH, childpid, NULL, NULL);
 				kill(childpid, SIGKILL);
 				reap_child(childpid);
 				break;
@@ -368,7 +368,7 @@ void do_main_loop(void)
 
 		shm->mainpid = getpid();
 		output(0, "Main thread is alive.\n");
-		prctl(PR_SET_NAME, (unsigned long) &taskname);
+		//prctl(PR_SET_NAME, (unsigned long) &taskname);
 		set_seed(0);
 
 		setup_fds();

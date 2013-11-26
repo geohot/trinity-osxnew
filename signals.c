@@ -78,8 +78,8 @@ void mask_signals_child(void)
 	(void)signal(SIGPIPE, SIG_IGN);
 
 	/* Ignore the RT signals. */
-	for (i = SIGRTMIN; i <= SIGRTMAX; i++)
-		(void)signal(i, SIG_IGN);
+	/*for (i = SIGRTMIN; i <= SIGRTMAX; i++)
+		(void)signal(i, SIG_IGN);*/
 
 	/* If we are in debug mode, we want segfaults and core dumps */
 	if (debug == TRUE)

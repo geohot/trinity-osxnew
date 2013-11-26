@@ -169,7 +169,7 @@ static int check_stat_file(const struct stat *sb)
 static int file_tree_callback(const char *fpath, const struct stat *sb, __unused__ int typeflag, __unused__ struct FTW *ftwbuf)
 {
 
-	if (ignore_files(fpath)) {
+	/*if (ignore_files(fpath)) {
 		return FTW_SKIP_SUBTREE;
 	}
 
@@ -183,14 +183,14 @@ static int file_tree_callback(const char *fpath, const struct stat *sb, __unused
 	add_to_namelist(fpath);
 	files_added++;
 
-	return FTW_CONTINUE;
+	return FTW_CONTINUE;*/
 }
 
 
 static void open_fds(const char *dirpath)
 {
 	int before = files_added;
-	int flags = FTW_DEPTH | FTW_ACTIONRETVAL | FTW_MOUNT;
+	int flags = FTW_DEPTH | FTW_MOUNT;
 	int ret;
 
 	/* By default, don't follow symlinks so we only get each file once.

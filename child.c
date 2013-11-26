@@ -11,7 +11,7 @@
 #include <sched.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/prctl.h>
+//#include <sys/prctl.h>
 
 #include "child.h"
 #include "syscall.h"
@@ -48,7 +48,7 @@ static void reenable_coredumps(void)
 	if (debug == TRUE)
 		return;
 
-	prctl(PR_SET_DUMPABLE, TRUE);
+	//prctl(PR_SET_DUMPABLE, TRUE);
 
 	if (setrlimit(RLIMIT_CORE, &oldrlimit) != 0) {
 		outputerr("[%d] Error restoring rlimits to cur:%d max:%d (%s)\n",
@@ -58,6 +58,7 @@ static void reenable_coredumps(void)
 			strerror(errno));
 	}
 }
+
 static void set_make_it_fail(void)
 {
 	int fd;
@@ -94,7 +95,7 @@ static void use_fpu(void)
 
 void init_child(int childno)
 {
-	cpu_set_t set;
+	//cpu_set_t set;
 	pid_t pid = getpid();
 
 	set_seed(childno);
@@ -103,11 +104,11 @@ void init_child(int childno)
 
 	disable_coredumps();
 
-	if (sched_getaffinity(pid, sizeof(set), &set) == 0) {
+	/*if (sched_getaffinity(pid, sizeof(set), &set) == 0) {
 		CPU_ZERO(&set);
 		CPU_SET(childno, &set);
 		sched_setaffinity(pid, sizeof(set), &set);
-	}
+	}*/
 
 	shm->child_syscall_count[childno] = 0;
 

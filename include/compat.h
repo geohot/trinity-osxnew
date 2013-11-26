@@ -1,3 +1,8 @@
+typedef unsigned char __u8;
+typedef unsigned int __u32;
+typedef unsigned long long __u64;
+#include <stdint.h>
+
 #ifndef _TRINITY_COMPAT_H
 #define _TRINITY_COMPAT_H 1
 
@@ -556,8 +561,8 @@ enum kcmp_type {
 
 /* linux/nfc.h */
 #ifndef sockaddr_nfc
-#include <bits/sockaddr.h>
-#include <linux/types.h>
+//#include <bits/sockaddr.h>
+//#include <linux/types.h>
 
 struct sockaddr_nfc {
 	sa_family_t sa_family;
