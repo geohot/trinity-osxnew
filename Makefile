@@ -12,6 +12,7 @@ ifneq ($(SYSROOT),)
 CFLAGS += --sysroot=$(SYSROOT)
 endif
 #CFLAGS += $(shell if $(CC) -m32 -S -o /dev/null -xc /dev/null >/dev/null 2>&1; then echo "-m32"; fi)
+CFLAGS += -g
 CFLAGS += -Wdeclaration-after-statement
 CFLAGS += -Wformat=2
 CFLAGS += -Winit-self

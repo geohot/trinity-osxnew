@@ -113,8 +113,10 @@ void mark_all_syscalls_active_uniarch(void)
 	unsigned int i;
 
 	for_each_syscall(i) {
-		syscalls[i].entry->flags |= ACTIVE;
-		activate_syscall(i);
+    if ( !(syscalls[i].entry->flags & TO_BE_DEACTIVATED) ) {
+      syscalls[i].entry->flags |= ACTIVE;
+      activate_syscall(i);
+    }
 	}
 }
 

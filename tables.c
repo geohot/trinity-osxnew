@@ -326,10 +326,16 @@ static struct syscalltable * copy_syscall_table(struct syscalltable *from, unsig
 		exit(EXIT_FAILURE);
 
 	for (n = 0; n < nr; n++) {
-		memcpy(copy + n , from[n].entry, sizeof(struct syscall));
-		copy[n].number = n;
-		copy[n].active_number = 0;
-		from[n].entry = &copy[n];
+    if (from[n].entry != NULL) {
+      memcpy(copy + n , from[n].entry, sizeof(struct syscall));
+      copy[n].number = n;
+      copy[n].active_number = 0;
+      from[n].entry = &copy[n];
+    } else {
+      from[n].entry = malloc(sizeof(struct syscall));
+      memset(from[n].entry, 0, sizeof(struct syscall));
+      from[n].entry->flags = TO_BE_DEACTIVATED;
+    }
 	}
 	return from;
 }

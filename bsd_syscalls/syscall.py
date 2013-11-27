@@ -14,7 +14,7 @@ for sc in stuff:
   sc = sc.split("\t")
   scname = sc[1][4:].lower()
   if sc[1] == "AUE_NULL" or not os.path.isfile('/Users/geohot/fuzzing/trinity/syscalls/'+scname+'.c'):
-    out += "  NULL,\n"
+    out += "  { .entry = 0 },\n"
   else:
     out += "  { .entry = &syscall_"+sc[1][4:].lower() + " },\n"
 
