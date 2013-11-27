@@ -39,7 +39,7 @@
 38	AUE_NULL	ALL	{ int nosys(void); }   { old stat  }
 39	AUE_GETPPID	ALL	{ int getppid(void); } 
 40	AUE_NULL	ALL	{ int nosys(void); }   { old lstat }
-41	AUE_DUP		ALL	{ int dup(u_int fd); } 
+41	AUE_DUP	ALL	{ int dup(u_int fd); } 
 42	AUE_PIPE	ALL	{ int pipe(void); } 
 43	AUE_GETEGID	ALL	{ int getegid(void); } 
 44	AUE_NULL	ALL	{ int nosys(void); } { old profil }

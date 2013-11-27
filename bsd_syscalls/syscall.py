@@ -12,16 +12,17 @@ out +=  'struct syscalltable syscalls_bsd[] = {\n'
 
 for sc in stuff:
   sc = sc.split("\t")
-  scname = sc[1][4:].lower()
-  if sc[1] == "AUE_NULL" or not os.path.isfile('/Users/geohot/fuzzing/trinity/syscalls/'+scname+'.c'):
+  #scname = sc[1][4:].lower()
+  print sc
+  scname = sc[3].split(" ")[2].split("(")[0]
+  print "checking syscall", scname
+  if scname == "nosys" or not os.path.isfile('/Users/geohot/fuzzing/trinity/syscalls/'+scname+'.c'):
     out += "  { .entry = 0 },\n"
   else:
-    out += "  { .entry = &syscall_"+sc[1][4:].lower() + " },\n"
+    out += "  { .entry = &syscall_"+scname + " },\n"
 
 out += '};\n'
 out += '#endif\n'
-
-print out
 
 f = open('/Users/geohot/fuzzing/trinity/include/syscalls-bsd.h', 'w')
 f.write(out)
